@@ -97,14 +97,20 @@ router.post('/addproject',upload.single('file') ,function(req,res, next){
 		var success_msg = 'Project added successfully.';
 		var newProject = new Project({
 			title: title,
-			url :url,
-			file :file,
 			username :username
 		});
 
+
+		if(file != undefined){
+			newProject.file = file.filename;
+		}
+
+		if(url != ""){
+			newProject.link = url;
+		}
 		newProject.save();
 
-		
+		console.log(newProject);
 
 		res.render('addproject',{
 			success_msg:success_msg
